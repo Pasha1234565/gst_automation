@@ -61,7 +61,7 @@ after_migrate = [
 
 # Before Request
 # ------------------------------
-# before_request = []
+before_request = ["gst_automation.patches.fix_child_table_parent_columns.try_fix_once"]
 
 # After Install
 # ------------------------------
