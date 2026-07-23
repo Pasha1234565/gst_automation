@@ -15,7 +15,7 @@ def execute():
 	Reuses the shared _create_custom_field helper from the controller.
 	"""
 	try:
-		doc = frappe.get_single("GST Invoice Customization")
+		doc = _get_or_create_single("GST Invoice Customization")
 
 		if not doc.get("field_mappings"):
 			print("  ℹ️  No field mappings found, nothing to deploy")
@@ -62,3 +62,15 @@ def execute():
 
 	except Exception as e:
 		print(f"  ❌ Deployment patch failed: {e}")
+
+
+def _get_or_create_single(doctype):
+	"""Get a Single DocType, creating the DB record if it doesn't exist."""
+	try:
+		return frappe.get_single(doctype)
+	except frappe.DoesNotExistError:
+		doc = frappe.new_doc(doctype)
+		doc.flags.ignore_permissions = True
+		doc.insert()
+		frappe.db.commit()
+		return doc
