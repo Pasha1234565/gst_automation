@@ -19,6 +19,8 @@ def get_or_create_single(doctype):
 	except frappe.DoesNotExistError:
 		doc = frappe.new_doc(doctype)
 		doc.flags.ignore_permissions = True
+		doc.flags.ignore_mandatory = True
+		doc.flags.ignore_validate = True
 		doc.insert()
 		frappe.db.commit()
 		return doc
