@@ -1,0 +1,221 @@
+{
+ "doctype": "DocType",
+ "name": "GSTR-3B Return",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 1,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 0,
+ "is_single": 0,
+ "editable_grid": 1,
+ "autoname": "naming_series:",
+ "naming_series": "GSTR3B-.YYYY.-.####",
+ "title_field": "return_period",
+ "track_changes": 1,
+ "track_views": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "GSTR3B-.YYYY.-.####",
+   "default": "GSTR3B-.YYYY.-.####",
+   "reqd": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "company_gstin",
+   "fieldtype": "Data",
+   "label": "Company GSTIN",
+   "fetch_from": "company.gstin",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "return_period",
+   "fieldtype": "Data",
+   "label": "Return Period (MMYYYY)",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "Format: MMYYYY (e.g., 042026 for April 2026)"
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "filing_status",
+   "fieldtype": "Select",
+   "label": "Filing Status",
+   "options": "Not Filed\nJSON Generated\nUploaded\nFiled",
+   "default": "Not Filed",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "filing_date",
+   "fieldtype": "Date",
+   "label": "Filing Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "itc_claim_period",
+   "fieldtype": "Select",
+   "label": "ITC Claim Period",
+   "options": "Current Period\nNext Period",
+   "default": "Current Period",
+   "description": "ITC claim period for inward supplies as per GSTR-2B"
+  },
+  {
+   "fieldname": "section_break_3a",
+   "fieldtype": "Section Break",
+   "label": "3.1(a) Outward Taxable Supplies"
+  },
+  {
+   "fieldname": "outward_taxable_supplies",
+   "fieldtype": "Table",
+   "label": "Outward Taxable Supplies",
+   "options": "GSTR-3B Outward Supply"
+  },
+  {
+   "fieldname": "section_break_3b",
+   "fieldtype": "Section Break",
+   "label": "3.1(b) Outward Zero-Rated Supplies"
+  },
+  {
+   "fieldname": "outward_zero_rated_supplies",
+   "fieldtype": "Table",
+   "label": "Outward Zero-Rated Supplies",
+   "options": "GSTR-3B Outward Supply"
+  },
+  {
+   "fieldname": "section_break_itc",
+   "fieldtype": "Section Break",
+   "label": "4. Input Tax Credit Details"
+  },
+  {
+   "fieldname": "itc_details",
+   "fieldtype": "Table",
+   "label": "ITC Details",
+   "options": "GSTR-3B ITC Detail"
+  },
+  {
+   "fieldname": "section_break_liability",
+   "fieldtype": "Section Break",
+   "label": "5. Net Tax Liability"
+  },
+  {
+   "fieldname": "net_liability",
+   "fieldtype": "Table",
+   "label": "Net Liability",
+   "options": "GSTR-3B Net Liability"
+  },
+  {
+   "fieldname": "section_break_payment",
+   "fieldtype": "Section Break",
+   "label": "Payment Summary"
+  },
+  {
+   "fieldname": "total_tax_payable",
+   "fieldtype": "Currency",
+   "label": "Total Tax Payable",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_payment",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_tax_paid",
+   "fieldtype": "Currency",
+   "label": "Total Tax Paid",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_json",
+   "fieldtype": "Section Break",
+   "label": "JSON Generation"
+  },
+  {
+   "fieldname": "generate_json_button",
+   "fieldtype": "Button",
+   "label": "Generate JSON"
+  },
+  {
+   "fieldname": "json_file",
+   "fieldtype": "Attach",
+   "label": "Generated JSON File",
+   "description": "Download the JSON file for GST portal upload"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "GSTR-3B Return",
+   "no_copy": 1,
+   "hidden": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "amend": 1,
+   "cancel": 1,
+   "submit": 1,
+   "email": 1,
+   "print": 1,
+   "import": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "GST Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "amend": 1,
+   "cancel": 1,
+   "submit": 1,
+   "email": 1,
+   "print": 1,
+   "import": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "Tax Accountant",
+   "read": 1,
+   "write": 0,
+   "email": 0,
+   "print": 1,
+   "report": 1,
+   "share": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

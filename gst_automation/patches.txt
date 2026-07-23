@@ -1,0 +1,7 @@
+[pre_model_sync]
+gst_automation.patches.create_gst_module.execute
+
+[post_model_sync]
+gst_automation.patches.create_gst_roles.execute
+gst_automation.patches.create_gst_workspace.execute
+gst_automation.patches.create_demo_doctypes.execute

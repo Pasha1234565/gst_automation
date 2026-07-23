@@ -1,0 +1,176 @@
+{
+ "doctype": "DocType",
+ "name": "GST Settings",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 0,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 0,
+ "is_single": 1,
+ "editable_grid": 1,
+ "track_changes": 1,
+ "track_views": 1,
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_gstin",
+   "fieldtype": "Data",
+   "label": "Company GSTIN",
+   "fetch_from": "company.gstin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "filing_frequency",
+   "fieldtype": "Select",
+   "label": "Filing Frequency",
+   "options": "Monthly\nQuarterly",
+   "default": "Monthly",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_defaults",
+   "fieldtype": "Section Break",
+   "label": "Defaults & Validation"
+  },
+  {
+   "fieldname": "round_off_gst",
+   "fieldtype": "Check",
+   "label": "Round Off GST Components",
+   "default": 1
+  },
+  {
+   "fieldname": "validate_hsn_sac",
+   "fieldtype": "Check",
+   "label": "Validate HSN/SAC Codes",
+   "description": "Ensure all items have valid HSN/SAC codes before invoice submission",
+   "default": 1
+  },
+  {
+   "fieldname": "default_hsn_length",
+   "fieldtype": "Select",
+   "label": "Default HSN Code Length",
+   "options": "4\n6\n8",
+   "default": "8",
+   "description": "HSN length for domestic sales. Export sales use 8 digits."
+  },
+  {
+   "fieldname": "column_break_validation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reverse_charge_threshold",
+   "fieldtype": "Currency",
+   "label": "Reverse Charge Threshold",
+   "description": "Threshold for RCM applicability on purchases from unregistered dealers",
+   "default": 5000
+  },
+  {
+   "fieldname": "restrict_invoice_after_filing",
+   "fieldtype": "Check",
+   "label": "Restrict Invoice Modification After Filing",
+   "description": "Prevent editing sales invoices once the return is filed",
+   "default": 1
+  },
+  {
+   "fieldname": "section_break_api",
+   "fieldtype": "Section Break",
+   "label": "GST Portal API"
+  },
+  {
+   "fieldname": "enable_api_integration",
+   "fieldtype": "Check",
+   "label": "Enable GST Portal API Integration"
+  },
+  {
+   "fieldname": "gst_username",
+   "fieldtype": "Data",
+   "label": "GST Portal Username",
+   "description": "Username used for GST portal login"
+  },
+  {
+   "fieldname": "column_break_api",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gst_api_endpoint",
+   "fieldtype": "Data",
+   "label": "GST API Endpoint",
+   "default": "https://api.gst.gov.in",
+   "description": "GST portal API base URL"
+  },
+  {
+   "fieldname": "section_break_notifications",
+   "fieldtype": "Section Break",
+   "label": "Notifications"
+  },
+  {
+   "fieldname": "notify_on_filing_due",
+   "fieldtype": "Check",
+   "label": "Notify Before Filing Due Date",
+   "default": 1
+  },
+  {
+   "fieldname": "notification_email",
+   "fieldtype": "Data",
+   "label": "Notification Email",
+   "options": "Email",
+   "description": "Email to send filing reminders and alerts"
+  },
+  {
+   "fieldname": "column_break_notify",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "days_before_due_for_reminder",
+   "fieldtype": "Int",
+   "label": "Days Before Due Date for Reminder",
+   "default": 5
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "import": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "GST Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "Tax Accountant",
+   "read": 1,
+   "write": 0,
+   "email": 0,
+   "print": 1,
+   "report": 1,
+   "share": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

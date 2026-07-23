@@ -1,0 +1,9 @@
+include *.txt
+include *.md
+recursive-include gst_automation *.json
+recursive-include gst_automation *.py
+recursive-include gst_automation *.js
+recursive-include gst_automation *.css
+recursive-include gst_automation *.html
+recursive-include gst_automation *.md
+recursive-include gst_automation *.txt

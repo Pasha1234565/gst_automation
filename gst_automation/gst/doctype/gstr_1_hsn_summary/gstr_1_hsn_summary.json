@@ -1,0 +1,84 @@
+{
+ "doctype": "DocType",
+ "name": "GSTR-1 HSN Summary",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 0,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 1,
+ "is_single": 0,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "hsn_code",
+   "fieldtype": "Data",
+   "label": "HSN/SAC Code",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "uqc",
+   "fieldtype": "Select",
+   "label": "UQC",
+   "options": "BAGS\nBAL\nBTL\nBOX\nDOZ\nGRM\nKGS\nLTR\nMTR\nNOS\nPCS\nQTL\nROL\nSQF\nSQM\nTBS\nTNE\nUN\nOTH",
+   "description": "Unit Quantity Code as per GST rule",
+   "default": "NOS"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "taxable_value",
+   "fieldtype": "Currency",
+   "label": "Taxable Value",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "column_break_rates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cgst_rate",
+   "fieldtype": "Percent",
+   "label": "CGST Rate",
+   "description": "Applicable CGST rate (%)"
+  },
+  {
+   "fieldname": "sgst_rate",
+   "fieldtype": "Percent",
+   "label": "SGST Rate",
+   "description": "Applicable SGST rate (%)"
+  },
+  {
+   "fieldname": "igst_rate",
+   "fieldtype": "Percent",
+   "label": "IGST Rate",
+   "description": "Applicable IGST rate (%)"
+  },
+  {
+   "fieldname": "total_tax",
+   "fieldtype": "Currency",
+   "label": "Total Tax",
+   "read_only": 1
+  }
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,55 @@
+{
+ "doctype": "DocType",
+ "name": "GSTR-3B ITC Detail",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 0,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 1,
+ "is_single": 0,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 4,
+   "description": "e.g., 4(A) Import of goods, 4(B) Import of services, 4(D) ITC from ISD, etc."
+  },
+  {
+   "fieldname": "itc_available",
+   "fieldtype": "Currency",
+   "label": "ITC Available",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "itc_claimed",
+   "fieldtype": "Currency",
+   "label": "ITC Claimed",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "itc_reversed",
+   "fieldtype": "Currency",
+   "label": "ITC Reversed",
+   "description": "ITC reversed under rule 37, 39, 42, 43"
+  },
+  {
+   "fieldname": "net_itc",
+   "fieldtype": "Currency",
+   "label": "Net ITC",
+   "read_only": 1,
+   "description": "ITC Available - ITC Reversed"
+  }
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,215 @@
+{
+ "doctype": "DocType",
+ "name": "GSTR-1 Return",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 1,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 0,
+ "is_single": 0,
+ "editable_grid": 1,
+ "autoname": "naming_series:",
+ "naming_series": "GSTR1-.YYYY.-.####",
+ "title_field": "return_period",
+ "track_changes": 1,
+ "track_views": 1,
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "GSTR1-.YYYY.-.####",
+   "default": "GSTR1-.YYYY.-.####",
+   "reqd": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "company_gstin",
+   "fieldtype": "Data",
+   "label": "Company GSTIN",
+   "fetch_from": "company.gstin",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "return_period",
+   "fieldtype": "Data",
+   "label": "Return Period (MMYYYY)",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "description": "Format: MMYYYY (e.g., 042026 for April 2026)"
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "filing_status",
+   "fieldtype": "Select",
+   "label": "Filing Status",
+   "options": "Not Filed\nJSON Generated\nUploaded\nFiled",
+   "default": "Not Filed",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "filing_date",
+   "fieldtype": "Date",
+   "label": "Filing Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "generation_date",
+   "fieldtype": "Datetime",
+   "label": "Last Generated On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_summary",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "total_b2b_invoices",
+   "fieldtype": "Int",
+   "label": "B2B Invoices",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_b2c_invoices",
+   "fieldtype": "Int",
+   "label": "B2C Invoices",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_credit_notes",
+   "fieldtype": "Int",
+   "label": "Credit/Debit Notes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_totals",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_taxable_value",
+   "fieldtype": "Currency",
+   "label": "Total Taxable Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_tax_amount",
+   "fieldtype": "Currency",
+   "label": "Total Tax Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_b2b",
+   "fieldtype": "Section Break",
+   "label": "B2B Invoices"
+  },
+  {
+   "fieldname": "b2b_invoices",
+   "fieldtype": "Table",
+   "label": "B2B Invoices",
+   "options": "GSTR-1 B2B Invoice"
+  },
+  {
+   "fieldname": "section_break_hsn",
+   "fieldtype": "Section Break",
+   "label": "HSN-wise Summary"
+  },
+  {
+   "fieldname": "hsn_summary",
+   "fieldtype": "Table",
+   "label": "HSN Summary",
+   "options": "GSTR-1 HSN Summary"
+  },
+  {
+   "fieldname": "section_break_json",
+   "fieldtype": "Section Break",
+   "label": "JSON Generation"
+  },
+  {
+   "fieldname": "generate_json_button",
+   "fieldtype": "Button",
+   "label": "Generate JSON"
+  },
+  {
+   "fieldname": "json_file",
+   "fieldtype": "Attach",
+   "label": "Generated JSON File",
+   "description": "Download the JSON file for GST portal upload"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "options": "GSTR-1 Return",
+   "no_copy": 1,
+   "hidden": 1,
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "amend": 1,
+   "cancel": 1,
+   "submit": 1,
+   "email": 1,
+   "print": 1,
+   "import": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "GST Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "amend": 1,
+   "cancel": 1,
+   "submit": 1,
+   "email": 1,
+   "print": 1,
+   "import": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "Tax Accountant",
+   "read": 1,
+   "write": 0,
+   "email": 0,
+   "print": 1,
+   "report": 1,
+   "share": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

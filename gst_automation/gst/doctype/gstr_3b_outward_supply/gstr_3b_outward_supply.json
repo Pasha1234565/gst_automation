@@ -1,0 +1,67 @@
+{
+ "doctype": "DocType",
+ "name": "GSTR-3B Outward Supply",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 0,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 1,
+ "is_single": 0,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 4,
+   "description": "e.g., 3.1(a) Outward taxable supplies, 3.1(b) Zero rated supply, etc."
+  },
+  {
+   "fieldname": "taxable_value",
+   "fieldtype": "Currency",
+   "label": "Taxable Value",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "cgst",
+   "fieldtype": "Currency",
+   "label": "CGST",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "sgst",
+   "fieldtype": "Currency",
+   "label": "SGST",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "igst",
+   "fieldtype": "Currency",
+   "label": "IGST",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "cess",
+   "fieldtype": "Currency",
+   "label": "CESS"
+  },
+  {
+   "fieldname": "total_tax",
+   "fieldtype": "Currency",
+   "label": "Total Tax",
+   "read_only": 1
+  }
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
