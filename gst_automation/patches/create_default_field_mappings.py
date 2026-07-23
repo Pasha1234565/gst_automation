@@ -28,7 +28,7 @@ def execute():
 
 		doc.flags.ignore_permissions = True
 		doc.flags.ignore_validate = True
-		doc.save()
+		doc.save(ignore_version=True)
 		frappe.db.commit()
 		print(f"  ✅ Seeded {len(defaults)} default field mappings")
 
