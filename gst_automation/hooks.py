@@ -23,6 +23,7 @@ fixtures = [
 doctype_class = {
 	"GSTR-1 Return": "gst_automation.gst.doctype.gstr_1_return.gstr_1_return.GSTR1Return",
 	"GSTR-3B Return": "gst_automation.gst.doctype.gstr_3b_return.gstr_3b_return.GSTR3BReturn",
+	"GST Invoice Customization": "gst_automation.gst.doctype.gst_invoice_customization.gst_invoice_customization.GSTInvoiceCustomization",
 }
 
 # Document Events
@@ -53,6 +54,8 @@ scheduler_events = {}
 # ------------------------------
 after_migrate = [
 	"gst_automation.patches.create_gst_workspace.execute",
+	"gst_automation.patches.create_default_field_mappings.execute",
+	"gst_automation.patches.deploy_gst_custom_fields.execute",
 ]
 
 

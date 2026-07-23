@@ -1,0 +1,168 @@
+{
+ "doctype": "DocType",
+ "name": "GST Invoice Customization",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 0,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 0,
+ "is_single": 1,
+ "editable_grid": 1,
+ "track_changes": 1,
+ "track_views": 1,
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_gstin",
+   "fieldtype": "Data",
+   "label": "Company GSTIN",
+   "fetch_from": "company.gstin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_behavior",
+   "fieldtype": "Section Break",
+   "label": "Invoice Behavior"
+  },
+  {
+   "fieldname": "auto_fetch_hsn_code",
+   "fieldtype": "Check",
+   "label": "Auto-fetch HSN Code from Item",
+   "default": 1,
+   "description": "Automatically populate HSN/SAC code on invoice items from the Item master"
+  },
+  {
+   "fieldname": "auto_validate_gstin",
+   "fieldtype": "Check",
+   "label": "Validate Customer GSTIN",
+   "default": 1,
+   "description": "Validate GSTIN format and state code on invoice submission"
+  },
+  {
+   "fieldname": "auto_set_place_of_supply",
+   "fieldtype": "Check",
+   "label": "Auto-set Place of Supply",
+   "default": 1,
+   "description": "Automatically set Place of Supply from the customer's shipping address"
+  },
+  {
+   "fieldname": "column_break_defaults",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_hsn_length",
+   "fieldtype": "Select",
+   "label": "Default HSN Code Length",
+   "options": "4\n6\n8",
+   "default": "8"
+  },
+  {
+   "fieldname": "invoice_type_field",
+   "fieldtype": "Select",
+   "label": "Invoice Type Determination",
+   "options": "Automatic from GST Category\nManual field on Invoice",
+   "default": "Automatic from GST Category",
+   "description": "How to determine B2B vs B2C classification"
+  },
+  {
+   "fieldname": "enable_e_invoice_fields",
+   "fieldtype": "Check",
+   "label": "Enable E-Invoice Fields",
+   "description": "Add IRN, Ack No, QR Code fields to Sales Invoice"
+  },
+  {
+   "fieldname": "section_break_mappings",
+   "fieldtype": "Section Break",
+   "label": "GST Return Field Mappings"
+  },
+  {
+   "fieldname": "field_mappings",
+   "fieldtype": "Table",
+   "label": "Field Mappings",
+   "options": "GST Field Mapping",
+   "description": "Define how Sales Invoice fields map to GSTR-1 and GSTR-3B return fields"
+  },
+  {
+   "fieldname": "section_break_actions",
+   "fieldtype": "Section Break",
+   "label": "Deployment Actions"
+  },
+  {
+   "fieldname": "deploy_custom_fields",
+   "fieldtype": "Button",
+   "label": "Deploy Custom Fields to Sales Invoice"
+  },
+  {
+   "fieldname": "column_break_actions",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reset_mappings",
+   "fieldtype": "Button",
+   "label": "Reset to Default Mappings"
+  },
+  {
+   "fieldname": "section_break_preview",
+   "fieldtype": "Section Break",
+   "label": "Deployment Log"
+  },
+  {
+   "fieldname": "last_deployed",
+   "fieldtype": "Datetime",
+   "label": "Last Deployed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "deployment_log",
+   "fieldtype": "Small Text",
+   "label": "Deployment Log",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "import": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "GST Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "print": 1,
+   "export": 1,
+   "report": 1,
+   "share": 1
+  },
+  {
+   "role": "Tax Accountant",
+   "read": 1,
+   "write": 0,
+   "email": 0,
+   "print": 1,
+   "report": 1,
+   "share": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

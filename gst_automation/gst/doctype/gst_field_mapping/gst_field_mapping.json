@@ -1,0 +1,126 @@
+{
+ "doctype": "DocType",
+ "name": "GST Field Mapping",
+ "module": "GST",
+ "is_custom": 0,
+ "is_submittable": 0,
+ "is_virtual": 0,
+ "is_tree": 0,
+ "is_child_table": 0,
+ "is_table": 1,
+ "is_single": 0,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "source_fieldname",
+   "fieldtype": "Data",
+   "label": "Source Field",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3,
+   "description": "Fieldname on Sales Invoice (e.g., base_grand_total)"
+  },
+  {
+   "fieldname": "source_label",
+   "fieldtype": "Data",
+   "label": "Source Label",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Human-readable label for this field"
+  },
+  {
+   "fieldname": "fieldtype",
+   "fieldtype": "Select",
+   "label": "Field Type",
+   "options": "Data\nCurrency\nSelect\nCheck\nDate\nFloat\nPercent\nSmall Text\nLink",
+   "default": "Data",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "options",
+   "fieldtype": "Small Text",
+   "label": "Options",
+   "description": "Options for Select fields (each on new line)"
+  },
+  {
+   "fieldname": "default_value",
+   "fieldtype": "Data",
+   "label": "Default Value"
+  },
+  {
+   "fieldname": "reqd",
+   "fieldtype": "Check",
+   "label": "Mandatory",
+   "default": 0
+  },
+  {
+   "fieldname": "column_break_target",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_return",
+   "fieldtype": "Select",
+   "label": "Target Return",
+   "options": "Both\nGSTR-1\nGSTR-3B",
+   "default": "Both",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "target_section",
+   "fieldtype": "Data",
+   "label": "Target Section",
+   "description": "Section in the return JSON (e.g., B2B, HSN Summary)"
+  },
+  {
+   "fieldname": "target_fieldname",
+   "fieldtype": "Data",
+   "label": "Target Field",
+   "description": "Fieldname in the return JSON payload"
+  },
+  {
+   "fieldname": "mapping_type",
+   "fieldtype": "Select",
+   "label": "Mapping Type",
+   "options": "Direct\nCustom Expression",
+   "default": "Direct"
+  },
+  {
+   "fieldname": "custom_expression",
+   "fieldtype": "Small Text",
+   "label": "Custom Expression",
+   "description": "Python expression for computed mappings (e.g., flt(doc.base_grand_total) * 0.18)"
+  },
+  {
+   "fieldname": "section_break_deploy",
+   "fieldtype": "Section Break",
+   "label": "Custom Field Deployment"
+  },
+  {
+   "fieldname": "deploy_as_custom_field",
+   "fieldtype": "Check",
+   "label": "Deploy as Custom Field on Sales Invoice",
+   "default": 1,
+   "description": "If checked, this field will be created as a Custom Field on Sales Invoice"
+  },
+  {
+   "fieldname": "insert_after_field",
+   "fieldtype": "Data",
+   "label": "Insert After",
+   "description": "Place the custom field after this existing field on Sales Invoice"
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": 1,
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
