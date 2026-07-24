@@ -39,7 +39,8 @@ def execute():
 	# Add number cards
 	add_number_cards(workspace)
 
-	# Add charts
+	# Create Dashboard Chart records and add them to workspace
+	create_dashboard_charts()
 	add_charts(workspace)
 
 	# Add links (card breaks with doc links & report links)
@@ -282,21 +283,76 @@ def add_number_cards(workspace):
 # ── Charts ─────────────────────────────────────────────
 
 
+def create_dashboard_charts():
+	"""Create Dashboard Chart doctype records for the workspace.
+
+	These are standalone chart records that query the database directly,
+	so they work reliably without depending on report scripts.
+	"""
+	charts = [
+		{
+			"chart_name": "Filing Compliance",
+			"chart_type": "Group By",
+			"document_type": "GSTR-1 Return",
+			"based_on": "filing_status",
+			"group_by_type": "Count",
+			"type": "Donut",
+			"color": "#28a745",
+		},
+		{
+			"chart_name": "Tax Liability Trend",
+			"chart_type": "Sum",
+			"document_type": "GSTR-3B Return",
+			"timeseries_based_on": "filing_date",
+			"aggregate_function_based_on": "total_tax_payable",
+			"type": "Line",
+			"timespan": "Last Year",
+			"time_interval": "Monthly",
+			"color": "#dc3545",
+		},
+	]
+
+	for chart_def in charts:
+		chart_name = chart_def["chart_name"]
+		if not frappe.db.exists("Dashboard Chart", chart_name):
+			try:
+				doc = frappe.new_doc("Dashboard Chart")
+				doc.chart_name = chart_name
+				doc.chart_type = chart_def["chart_type"]
+				doc.document_type = chart_def.get("document_type", "")
+				doc.based_on = chart_def.get("based_on", "")
+				doc.group_by_type = chart_def.get("group_by_type", "")
+				doc.type = chart_def["type"]
+				doc.timespan = chart_def.get("timespan", "")
+				doc.time_interval = chart_def.get("time_interval", "")
+				doc.timeseries_based_on = chart_def.get("timeseries_based_on", "")
+				doc.aggregate_function_based_on = chart_def.get("aggregate_function_based_on", "")
+				doc.color = chart_def.get("color", "#007bff")
+
+				doc.flags.ignore_permissions = True
+				doc.flags.ignore_mandatory = True
+				doc.insert()
+				print(f"  📊 Created Dashboard Chart: {chart_name}")
+			except Exception as e:
+				frappe.db.rollback()
+				print(f"  ⚠️  Could not create chart '{chart_name}': {e}")
+		else:
+			print(f"  ℹ️  Dashboard Chart '{chart_name}' already exists")
+
+
 def add_charts(workspace):
-	"""Add dashboard charts to the workspace."""
+	"""Add dashboard chart entries to the workspace."""
 	charts = [
 		{
 			"chart_name": "Filing Compliance",
 			"label": "Filing Compliance",
-			"chart_type": "Report",
-			"report_name": "GST Filing Status",
+			"chart_type": "Dashboard Chart",
 			"width": "Half",
 		},
 		{
 			"chart_name": "Tax Liability Trend",
 			"label": "Tax Liability Trend",
-			"chart_type": "Report",
-			"report_name": "GST Tax Liability",
+			"chart_type": "Dashboard Chart",
 			"width": "Half",
 		},
 	]
