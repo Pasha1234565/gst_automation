@@ -294,17 +294,18 @@ def create_dashboard_charts():
 			"chart_name": "Filing Compliance",
 			"chart_type": "Group By",
 			"document_type": "GSTR-1 Return",
-			"based_on": "filing_status",
+			"group_by_based_on": "filing_status",
 			"group_by_type": "Count",
 			"type": "Donut",
 			"color": "#28a745",
+			"number_of_groups": 0,
 		},
 		{
 			"chart_name": "Tax Liability Trend",
 			"chart_type": "Sum",
 			"document_type": "GSTR-3B Return",
-			"timeseries_based_on": "filing_date",
-			"aggregate_function_based_on": "total_tax_payable",
+			"based_on": "filing_date",
+			"value_based_on": "total_tax_payable",
 			"type": "Line",
 			"timespan": "Last Year",
 			"time_interval": "Monthly",
@@ -327,27 +328,22 @@ def create_dashboard_charts():
 				"chart_name": chart_name,
 				"chart_type": chart_def["chart_type"],
 				"document_type": chart_def.get("document_type", ""),
-				"based_on": chart_def.get("based_on", ""),
-				"group_by_type": chart_def.get("group_by_type", ""),
 				"type": chart_def["type"],
-				"timespan": chart_def.get("timespan", ""),
-				"time_interval": chart_def.get("time_interval", ""),
-				"timeseries_based_on": chart_def.get("timeseries_based_on", ""),
-				"aggregate_function_based_on": chart_def.get("aggregate_function_based_on", ""),
 				"color": chart_def.get("color", "#007bff"),
 			}
 
-			# For Sum/Average charts with timeseries, we need the y_axis child table
-			if chart_def["chart_type"] in ("Sum", "Average") and chart_def.get("aggregate_function_based_on"):
-				doc_dict["y_axis"] = [
-					{
-						"doctype": "Dashboard Chart Field",
-						"parent": chart_name,
-						"parentfield": "y_axis",
-						"parenttype": "Dashboard Chart",
-						"value_based_on": chart_def["aggregate_function_based_on"],
-					}
-				]
+			# Group By specific fields
+			if chart_def["chart_type"] == "Group By":
+				doc_dict["group_by_based_on"] = chart_def.get("group_by_based_on", "")
+				doc_dict["group_by_type"] = chart_def.get("group_by_type", "Count")
+				doc_dict["number_of_groups"] = chart_def.get("number_of_groups", 0)
+
+			# Timeseries specific fields (for Sum/Average with date-based x-axis)
+			if chart_def["chart_type"] in ("Sum", "Average"):
+				doc_dict["based_on"] = chart_def.get("based_on", "")
+				doc_dict["value_based_on"] = chart_def.get("value_based_on", "")
+				doc_dict["timespan"] = chart_def.get("timespan", "")
+				doc_dict["time_interval"] = chart_def.get("time_interval", "")
 
 			doc = frappe.get_doc(doc_dict)
 			doc.flags.ignore_permissions = True
