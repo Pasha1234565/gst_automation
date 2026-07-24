@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import json
+import uuid
 import frappe
 
 
@@ -39,9 +40,11 @@ def execute():
 	# Add number cards
 	add_number_cards(workspace)
 
-	# Create Dashboard Chart records and add them to workspace
-	create_dashboard_charts()
-	add_charts(workspace)
+	# Create Dashboard Chart records
+	created_charts = create_dashboard_charts()
+
+	# Add charts to workspace (only those that were successfully created)
+	add_charts(workspace, created_charts)
 
 	# Add links (card breaks with doc links & report links)
 	add_links(workspace)
@@ -61,110 +64,105 @@ def execute():
 # ── Layout Content ─────────────────────────────────────
 
 
+def _uid():
+	"""Generate a short unique ID for content blocks."""
+	return uuid.uuid4().hex[:12]
+
+
 def build_workspace_content():
-	"""Build workspace layout JSON content."""
+	"""Build workspace layout JSON content with proper block IDs."""
 	content = [
 		# ── Row 1: Quick Actions ──
-		{"type": "header", "data": {"text": "Quick Actions", "level": 4, "col": 12}},
 		{
-			"type": "shortcut",
-			"data": {
-				"shortcut_name": "New GSTR-1",
-				"col": 3,
-			},
+			"id": _uid(),
+			"type": "header",
+			"data": {"text": "Quick Actions", "level": 4, "col": 12},
 		},
 		{
+			"id": _uid(),
 			"type": "shortcut",
-			"data": {
-				"shortcut_name": "New GSTR-3B",
-				"col": 3,
-			},
+			"data": {"shortcut_name": "New GSTR-1", "col": 3},
 		},
 		{
+			"id": _uid(),
 			"type": "shortcut",
-			"data": {
-				"shortcut_name": "GST Settings",
-				"col": 3,
-			},
+			"data": {"shortcut_name": "New GSTR-3B", "col": 3},
 		},
 		{
+			"id": _uid(),
 			"type": "shortcut",
-			"data": {
-				"shortcut_name": "GSTR-1 List",
-				"col": 3,
-			},
+			"data": {"shortcut_name": "GST Settings", "col": 3},
 		},
-		{"type": "spacer", "data": {"col": 12}},
+		{
+			"id": _uid(),
+			"type": "shortcut",
+			"data": {"shortcut_name": "GSTR-1 List", "col": 3},
+		},
+		{"id": _uid(), "type": "spacer", "data": {"col": 12}},
 		# ── Row 2: Key Metrics ──
-		{"type": "header", "data": {"text": "Key Metrics", "level": 4, "col": 12}},
 		{
-			"type": "number_card",
-			"data": {
-				"number_card_name": "Pending GSTR-1 Filings",
-				"col": 3,
-			},
+			"id": _uid(),
+			"type": "header",
+			"data": {"text": "Key Metrics", "level": 4, "col": 12},
 		},
 		{
+			"id": _uid(),
 			"type": "number_card",
-			"data": {
-				"number_card_name": "Pending GSTR-3B Filings",
-				"col": 3,
-			},
+			"data": {"number_card_name": "Pending GSTR-1 Filings", "col": 3},
 		},
-	{
-		"type": "number_card",
-		"data": {
-			"number_card_name": "GSTR-1 Filed This Month",
-			"col": 3,
+		{
+			"id": _uid(),
+			"type": "number_card",
+			"data": {"number_card_name": "Pending GSTR-3B Filings", "col": 3},
 		},
-	},
-	{
-		"type": "number_card",
-		"data": {
-			"number_card_name": "Total GSTR-1 Filed",
-			"col": 3,
+		{
+			"id": _uid(),
+			"type": "number_card",
+			"data": {"number_card_name": "GSTR-1 Filed This Month", "col": 3},
 		},
-	},
-		{"type": "spacer", "data": {"col": 12}},
+		{
+			"id": _uid(),
+			"type": "number_card",
+			"data": {"number_card_name": "Total GSTR-1 Filed", "col": 3},
+		},
+		{"id": _uid(), "type": "spacer", "data": {"col": 12}},
 		# ── Row 3: Charts ──
-		{"type": "header", "data": {"text": "Analytics", "level": 4, "col": 12}},
 		{
-			"type": "chart",
-			"data": {
-				"chart_name": "Filing Compliance",
-				"col": 6,
-			},
+			"id": _uid(),
+			"type": "header",
+			"data": {"text": "Analytics", "level": 4, "col": 12},
 		},
 		{
+			"id": _uid(),
 			"type": "chart",
-			"data": {
-				"chart_name": "Tax Liability Trend",
-				"col": 6,
-			},
+			"data": {"chart_name": "Filing Compliance", "col": 6},
 		},
-		{"type": "spacer", "data": {"col": 12}},
+		{
+			"id": _uid(),
+			"type": "chart",
+			"data": {"chart_name": "Tax Liability Trend", "col": 6},
+		},
+		{"id": _uid(), "type": "spacer", "data": {"col": 12}},
 		# ── Row 4: Navigation Cards ──
-		{"type": "header", "data": {"text": "GST Operations", "level": 4, "col": 12}},
 		{
-			"type": "card",
-			"data": {
-				"card_name": "Returns",
-				"col": 4,
-			},
+			"id": _uid(),
+			"type": "header",
+			"data": {"text": "GST Operations", "level": 4, "col": 12},
 		},
 		{
+			"id": _uid(),
 			"type": "card",
-			"data": {
-				"card_name": "Configuration",
-				"col": 4,
-			},
+			"data": {"card_name": "Returns", "col": 4},
 		},
 		{
+			"id": _uid(),
 			"type": "card",
-			"data": {
-				"card_name": "Reports & Analytics",
-				"col": 4,
-			},
+			"data": {"card_name": "Configuration", "col": 4},
+		},
+		{
+			"id": _uid(),
+			"type": "card",
+			"data": {"card_name": "Reports & Analytics", "col": 4},
 		},
 	]
 	return json.dumps(content)
@@ -286,9 +284,11 @@ def add_number_cards(workspace):
 def create_dashboard_charts():
 	"""Create Dashboard Chart doctype records for the workspace.
 
-	These are standalone chart records that query the database directly,
-	so they work reliably without depending on report scripts.
+	Returns:
+	    set: Names of charts that were successfully created or already exist.
 	"""
+	ready = set()
+
 	charts = [
 		{
 			"chart_name": "Filing Compliance",
@@ -314,50 +314,84 @@ def create_dashboard_charts():
 
 	for chart_def in charts:
 		chart_name = chart_def["chart_name"]
-		if not frappe.db.exists("Dashboard Chart", chart_name):
-			try:
-				doc = frappe.new_doc("Dashboard Chart")
-				doc.chart_name = chart_name
-				doc.chart_type = chart_def["chart_type"]
-				doc.document_type = chart_def.get("document_type", "")
-				doc.based_on = chart_def.get("based_on", "")
-				doc.group_by_type = chart_def.get("group_by_type", "")
-				doc.type = chart_def["type"]
-				doc.timespan = chart_def.get("timespan", "")
-				doc.time_interval = chart_def.get("time_interval", "")
-				doc.timeseries_based_on = chart_def.get("timeseries_based_on", "")
-				doc.aggregate_function_based_on = chart_def.get("aggregate_function_based_on", "")
-				doc.color = chart_def.get("color", "#007bff")
 
-				doc.flags.ignore_permissions = True
-				doc.flags.ignore_mandatory = True
-				doc.insert()
-				print(f"  📊 Created Dashboard Chart: {chart_name}")
-			except Exception as e:
-				frappe.db.rollback()
-				print(f"  ⚠️  Could not create chart '{chart_name}': {e}")
-		else:
+		if frappe.db.exists("Dashboard Chart", chart_name):
 			print(f"  ℹ️  Dashboard Chart '{chart_name}' already exists")
+			ready.add(chart_name)
+			continue
+
+		try:
+			# Build the document via dict to ensure all fields are set atomically
+			doc_dict = {
+				"doctype": "Dashboard Chart",
+				"chart_name": chart_name,
+				"chart_type": chart_def["chart_type"],
+				"document_type": chart_def.get("document_type", ""),
+				"based_on": chart_def.get("based_on", ""),
+				"group_by_type": chart_def.get("group_by_type", ""),
+				"type": chart_def["type"],
+				"timespan": chart_def.get("timespan", ""),
+				"time_interval": chart_def.get("time_interval", ""),
+				"timeseries_based_on": chart_def.get("timeseries_based_on", ""),
+				"aggregate_function_based_on": chart_def.get("aggregate_function_based_on", ""),
+				"color": chart_def.get("color", "#007bff"),
+			}
+
+			# For Sum/Average charts with timeseries, we need the y_axis child table
+			if chart_def["chart_type"] in ("Sum", "Average") and chart_def.get("aggregate_function_based_on"):
+				doc_dict["y_axis"] = [
+					{
+						"doctype": "Dashboard Chart Field",
+						"parent": chart_name,
+						"parentfield": "y_axis",
+						"parenttype": "Dashboard Chart",
+						"value_based_on": chart_def["aggregate_function_based_on"],
+					}
+				]
+
+			doc = frappe.get_doc(doc_dict)
+			doc.flags.ignore_permissions = True
+			doc.flags.ignore_mandatory = True
+			doc.insert()
+			print(f"  📊 Created Dashboard Chart: {chart_name}")
+			ready.add(chart_name)
+
+		except Exception as e:
+			# Log but DON'T rollback — the final commit in execute() handles it
+			print(f"  ⚠️  Could not create chart '{chart_name}': {e}")
+
+	return ready
 
 
-def add_charts(workspace):
-	"""Add dashboard chart entries to the workspace."""
-	charts = [
-		{
-			"chart_name": "Filing Compliance",
-			"label": "Filing Compliance",
-			"chart_type": "Dashboard Chart",
-			"width": "Half",
-		},
-		{
-			"chart_name": "Tax Liability Trend",
-			"label": "Tax Liability Trend",
-			"chart_type": "Dashboard Chart",
-			"width": "Half",
-		},
-	]
-	for c in charts:
+def add_charts(workspace, ready_charts):
+	"""Add dashboard chart entries to the workspace for charts that exist."""
+	chart_entries = []
+
+	if "Filing Compliance" in ready_charts:
+		chart_entries.append(
+			{
+				"chart_name": "Filing Compliance",
+				"label": "Filing Compliance",
+				"chart_type": "Dashboard Chart",
+				"width": "Half",
+			}
+		)
+
+	if "Tax Liability Trend" in ready_charts:
+		chart_entries.append(
+			{
+				"chart_name": "Tax Liability Trend",
+				"label": "Tax Liability Trend",
+				"chart_type": "Dashboard Chart",
+				"width": "Half",
+			}
+		)
+
+	for c in chart_entries:
 		workspace.append("charts", c)
+
+	if not chart_entries:
+		print("  ⚠️  No Dashboard Chart records were available — charts will not render")
 
 
 # ── Links (Sidebar Navigation) ─────────────────────────
@@ -463,6 +497,3 @@ def add_links(workspace):
 	]
 	for link in links:
 		workspace.append("links", link)
-
-
-
