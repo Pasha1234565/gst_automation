@@ -86,7 +86,7 @@ def build_filing_date(period, status):
 	"""Return a realistic filing date for filed returns."""
 	if status == "Filed":
 		month = int(period[:2])
-		year = int("20" + period[2:])
+		year = int(period[2:])  # period is MMYYYY, so [2:] is already 4-digit year
 		# Assume filed by 20th of the following month
 		filing_month = month + 1
 		filing_year = year
@@ -400,5 +400,5 @@ def create_gstr3b_return(company, period, filing_status):
 def get_invoice_date(period, day):
 	"""Build an invoice date string for the given period and day."""
 	month = int(period[:2])
-	year = int("20" + period[2:])
+	year = int(period[2:])  # period is MMYYYY, so [2:] is already 4-digit year
 	return "{:04d}-{:02d}-{:02d}".format(year, month, day)
