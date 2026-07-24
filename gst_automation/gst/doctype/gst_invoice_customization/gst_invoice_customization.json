@@ -24,8 +24,7 @@
    "fieldname": "company_gstin",
    "fieldtype": "Data",
    "label": "Company GSTIN",
-   "fetch_from": "company.gstin",
-   "read_only": 1
+   "read_only": 0
   },
   {
    "fieldname": "section_break_behavior",

@@ -9,6 +9,14 @@ class GSTR3BReturn(Document):
 	def validate(self):
 		self.validate_return_period_format()
 		self.validate_duplicate_period()
+		self.set_company_gstin()
+
+	def set_company_gstin(self):
+		"""Auto-populate company_gstin from GST Settings if not set."""
+		if not self.company_gstin:
+			gst_settings = frappe.get_single("GST Settings")
+			if gst_settings.company_gstin:
+				self.company_gstin = gst_settings.company_gstin
 
 	def before_submit(self):
 		self.filing_status = "Filed"

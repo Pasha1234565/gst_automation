@@ -9,6 +9,10 @@ app_color = "green"
 app_email = "info@example.com"
 app_license = "MIT"
 
+# Required Apps (installed automatically on site install)
+# ------------------------------
+required_apps = ["erpnext"]
+
 # Fixtures
 # ------------------------------
 fixtures = [

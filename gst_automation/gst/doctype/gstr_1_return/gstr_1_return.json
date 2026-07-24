@@ -37,7 +37,6 @@
    "fieldname": "company_gstin",
    "fieldtype": "Data",
    "label": "Company GSTIN",
-   "fetch_from": "company.gstin",
    "read_only": 1,
    "in_list_view": 1,
    "in_standard_filter": 1
