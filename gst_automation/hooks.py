@@ -43,7 +43,11 @@ doc_events = {}
 
 # Scheduled Tasks
 # ------------------------------
-scheduler_events = {}
+scheduler_events = {
+	"daily": [
+		"gst_automation.gst.notifications.send_due_date_reminders",
+	],
+}
 
 # Permissions
 # ------------------------------

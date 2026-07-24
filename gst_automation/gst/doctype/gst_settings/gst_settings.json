@@ -130,8 +130,45 @@
   {
    "fieldname": "days_before_due_for_reminder",
    "fieldtype": "Int",
-   "label": "Days Before Due Date for Reminder",
+   "label": "Days Before Due Date for Reminder (Email)",
    "default": 5
+  },
+  {
+   "fieldname": "section_break_in_app",
+   "fieldtype": "Section Break",
+   "label": "In-App Notifications"
+  },
+  {
+   "fieldname": "enable_in_app_notifications",
+   "fieldtype": "Check",
+   "label": "Enable In-App Notifications",
+   "description": "Send reminders inside the Frappe app (notification bell) before filing deadlines",
+   "default": 1
+  },
+  {
+   "fieldname": "in_app_notify_days",
+   "fieldtype": "Int",
+   "label": "Reminder Days Before Due",
+   "description": "How many days before the 20th (GSTR-3B) and 11th (GSTR-1) to send in-app reminders",
+   "default": 2
+  },
+  {
+   "fieldname": "column_break_in_app",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notify_gstr3b_due",
+   "fieldtype": "Check",
+   "label": "Remind for GSTR-3B Payment Due",
+   "description": "Send in-app reminders about the tax amount payable for GSTR-3B",
+   "default": 1
+  },
+  {
+   "fieldname": "notify_gstr1_due",
+   "fieldtype": "Check",
+   "label": "Remind for GSTR-1 Filing Due",
+   "description": "Send in-app reminders for GSTR-1 return filing due date",
+   "default": 1
   }
  ],
  "permissions": [
