@@ -22,6 +22,13 @@ fixtures = [
 	{"dt": "Role", "filters": [["name", "in", ["GST Manager", "Tax Accountant"]]]},
 ]
 
+# Reports (auto-discovered from module directory)
+# ------------------------------
+reports = [
+	"GST Filing Status",
+	"GST Tax Liability",
+]
+
 # DocType Class
 # ------------------------------
 doctype_class = {

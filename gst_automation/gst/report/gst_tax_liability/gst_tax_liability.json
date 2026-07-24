@@ -1,0 +1,13 @@
+{
+ "doctype": "Report",
+ "name": "GST Tax Liability",
+ "module": "GST",
+ "is_standard": "Yes",
+ "report_type": "Script Report",
+ "ref_doctype": "GSTR-3B Return",
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "GST Manager"},
+  {"role": "Tax Accountant"}
+]
+}
