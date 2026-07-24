@@ -6,6 +6,7 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime
 
 from gst_automation.api.gstr_1 import _build_gstr1_payload
+from gst_automation.patches import get_or_create_single
 
 
 class GSTR1Return(Document):
@@ -17,7 +18,7 @@ class GSTR1Return(Document):
 	def set_company_gstin(self):
 		"""Auto-populate company_gstin from GST Settings if not set."""
 		if not self.company_gstin:
-			gst_settings = frappe.get_single("GST Settings")
+			gst_settings = get_or_create_single("GST Settings")
 			if gst_settings.company_gstin:
 				self.company_gstin = gst_settings.company_gstin
 
