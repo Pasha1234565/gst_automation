@@ -6,7 +6,6 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime, flt
 
 from gst_automation.api.gstr_3b import _build_gstr3b_payload
-from gst_automation.patches import get_or_create_single
 
 
 class GSTR3BReturn(Document):
@@ -18,9 +17,12 @@ class GSTR3BReturn(Document):
 	def set_company_gstin(self):
 		"""Auto-populate company_gstin from GST Settings if not set."""
 		if not self.company_gstin:
-			gst_settings = get_or_create_single("GST Settings")
-			if gst_settings.company_gstin:
-				self.company_gstin = gst_settings.company_gstin
+			try:
+				gst_settings = frappe.get_single("GST Settings")
+				if gst_settings.company_gstin:
+					self.company_gstin = gst_settings.company_gstin
+			except frappe.DoesNotExistError:
+				pass
 
 	def before_submit(self):
 		self.filing_status = "Filed"
