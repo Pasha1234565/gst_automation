@@ -1,8 +1,11 @@
 from __future__ import unicode_literals
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime, flt
+
+from gst_automation.api.gstr_3b import _build_gstr3b_payload
 
 
 class GSTR3BReturn(Document):
@@ -76,3 +79,49 @@ class GSTR3BReturn(Document):
 
 		self.total_tax_payable = total_payable
 		self.total_tax_paid = total_payable  # Default: assume full payment on filing
+
+
+# ─── Whitelisted Endpoints ──────────────────────────────
+
+
+@frappe.whitelist()
+def generate_gstr3b_json(docname):
+	"""Generate a GSTN-compliant JSON file for the GSTR-3B Return.
+
+	Builds the JSON payload from the document's child tables
+	(outward supplies, ITC details, net liability), creates a
+	File attachment, and updates the json_file, filing_status
+	and generation_date fields.
+
+	Args:
+	    docname: Name (ID) of the GSTR-3B Return document
+
+	Returns:
+	    str: Success message with file URL
+	"""
+	doc = frappe.get_doc("GSTR-3B Return", docname)
+
+	payload = _build_gstr3b_payload(doc)
+
+	json_str = frappe.as_json(payload, indent=2)
+
+	file_name = "GSTR3B_{}_{}.json".format(doc.return_period, doc.company.replace(" ", "_"))
+
+	_file = frappe.get_doc(
+		{
+			"doctype": "File",
+			"file_name": file_name,
+			"attached_to_doctype": "GSTR-3B Return",
+			"attached_to_name": doc.name,
+			"content": json_str,
+			"is_private": 0,
+		}
+	)
+	_file.flags.ignore_permissions = True
+	_file.insert()
+
+	doc.db_set("json_file", _file.file_url)
+	doc.db_set("filing_status", "JSON Generated")
+	doc.db_set("generation_date", now_datetime())
+
+	return _("JSON file attached: {0}").format(_file.file_url)
