@@ -27,8 +27,8 @@ class GSTR3BReturn(Document):
 				if gstin:
 					self.company_gstin = gstin
 			except Exception:
-				# Safety net — ignore silently
-				pass
+				# Safety net — log but never block submission
+				frappe.log_error(title="GST Settings Read Error (GSTR-3B)", message=frappe.get_traceback())
 
 	def before_submit(self):
 		self.filing_status = "Filed"
