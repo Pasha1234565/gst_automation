@@ -26,6 +26,12 @@ class GSTR3BReturn(Document):
 				# This is normal before bench migrate is run.
 				frappe.logger().debug("GST Settings record not found — skipping auto-population of GSTIN")
 				pass
+			except Exception as e:
+				# Catch any unexpected errors to avoid blocking submission
+				frappe.log_error(
+					title="GST Settings Error (GSTR-3B)",
+					message=f"Document: {self.name}\nError: {str(e)}\n{frappe.get_traceback()}"
+				)
 
 	def before_submit(self):
 		self.filing_status = "Filed"
