@@ -21,13 +21,10 @@ class GSTR3BReturn(Document):
 				gst_settings = frappe.get_single("GST Settings")
 				if gst_settings.company_gstin:
 					self.company_gstin = gst_settings.company_gstin
-			except frappe.DoesNotExistError:
-				# GST Settings singleton record not yet created.
-				# This is normal before bench migrate is run.
-				frappe.logger().debug("GST Settings record not found — skipping auto-population of GSTIN")
-				pass
 			except Exception as e:
-				# Catch any unexpected errors to avoid blocking submission
+				# GST Settings may not exist yet (before bench migrate)
+				# or there may be another unexpected error.
+				# Log it and continue so submission is not blocked.
 				frappe.log_error(
 					title="GST Settings Error (GSTR-3B)",
 					message=f"Document: {self.name}\nError: {str(e)}\n{frappe.get_traceback()}"
