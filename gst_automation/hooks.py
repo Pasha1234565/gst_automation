@@ -68,6 +68,7 @@ scheduler_events = {
 # After Migrate
 # ------------------------------
 after_migrate = [
+	"gst_automation.patches.create_gst_settings.execute",
 	"gst_automation.patches.create_gst_workspace.execute",
 	"gst_automation.patches.create_default_field_mappings.execute",
 	"gst_automation.patches.deploy_gst_custom_fields.execute",
@@ -81,6 +82,7 @@ before_request = ["gst_automation.patches.fix_child_table_parent_columns.try_fix
 # After Install
 # ------------------------------
 after_install = [
+	"gst_automation.patches.create_gst_settings.execute",
 	"gst_automation.patches.create_gst_roles.execute",
 ]
 

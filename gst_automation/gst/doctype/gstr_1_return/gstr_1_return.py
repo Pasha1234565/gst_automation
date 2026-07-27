@@ -22,6 +22,9 @@ class GSTR1Return(Document):
 				if gst_settings.company_gstin:
 					self.company_gstin = gst_settings.company_gstin
 			except frappe.DoesNotExistError:
+				# GST Settings singleton record not yet created.
+				# This is normal before bench migrate is run.
+				frappe.logger().debug("GST Settings record not found — skipping auto-population of GSTIN")
 				pass
 
 	def before_submit(self):
