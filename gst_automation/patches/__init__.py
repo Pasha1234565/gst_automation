@@ -24,3 +24,25 @@ def get_or_create_single(doctype):
 		doc.insert()
 		frappe.db.commit()
 		return doc
+
+
+def ensure_single_exists(doctype):
+	"""Ensure a Single DocType record exists, creating it if needed.
+
+	Unlike get_or_create_single(), this function does NOT call
+	frappe.db.commit(), making it safe to call inside validate(),
+	server scripts, or other transactional contexts.
+
+	Args:
+		doctype: Name of the Single DocType
+	"""
+	if not frappe.db.exists(doctype, doctype):
+		doc = frappe.new_doc(doctype)
+		doc.flags.ignore_permissions = True
+		doc.flags.ignore_mandatory = True
+		doc.flags.ignore_validate = True
+		doc.insert(
+			ignore_permissions=True,
+			ignore_mandatory=True,
+			ignore_validate=True,
+		)

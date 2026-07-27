@@ -6,6 +6,7 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime
 
 from gst_automation.api.gstr_1 import _build_gstr1_payload
+from gst_automation.patches import ensure_single_exists
 
 
 class GSTR1Return(Document):
@@ -17,14 +18,14 @@ class GSTR1Return(Document):
 	def set_company_gstin(self):
 		"""Auto-populate company_gstin from GST Settings if not set."""
 		if not self.company_gstin:
+			# Ensure the singleton record exists before trying to access it
+			ensure_single_exists("GST Settings")
 			try:
 				gst_settings = frappe.get_single("GST Settings")
 				if gst_settings.company_gstin:
 					self.company_gstin = gst_settings.company_gstin
 			except Exception as e:
-				# GST Settings may not exist yet (before bench migrate)
-				# or there may be another unexpected error.
-				# Log it and continue so submission is not blocked.
+				# Log unexpected errors but don't block submission
 				frappe.log_error(
 					title="GST Settings Error (GSTR-1)",
 					message=f"Document: {self.name}\nError: {str(e)}\n{frappe.get_traceback()}"
